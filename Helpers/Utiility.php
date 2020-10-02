@@ -87,4 +87,28 @@ class Utility
   {
     return !preg_match("~^(?:f|ht)tps?://~i", $url) ? "http://" . $url : $url;
   }
+
+  /**
+   * *Functions to traverse directory and its sub directories.
+   * @param string  $dir directory which needs to traverse.
+   * @return mixed[] list of all directories and files
+   */
+  public static function traverse_directory($dir = "")
+  {
+    $separator = '/';
+    $result = [];
+    $currentDir = scandir($dir, 1);
+    foreach ($currentDir as $key => $value) {
+      if (!in_array($value, [".", ".."])) {
+        if (is_dir($dir . $separator . $value)) {
+          $result[$value] = self::traverse_directory(
+            $dir . $separator . $value
+          );
+        } else {
+          $result[] = $value;
+        }
+      }
+    }
+    return $result;
+  }
 }
