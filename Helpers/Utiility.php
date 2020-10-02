@@ -42,7 +42,41 @@ class Utility
 
       $color = str_pad(dechex($color + $adjustAmount), 2, '0', STR_PAD_LEFT);
     }
-
     return '#' . implode($hexCode);
+  }
+
+  /**
+   * *Generating random string either character or numbers
+   * @param int  $length length of the string - default 6
+   * @param int $chartype type of string to be generated character or number
+   * @return string
+   */
+  public static function generateRandomCode($length = 6, $chartype = '')
+  {
+    if ($chartype == 1) {
+      //only numbers
+      $characters = '0123456789';
+    } elseif ($chartype == 2) {
+      //only alphabets
+      $characters = 'abcdefghijklmnopqrstuvwxyz';
+    } else {
+      $characters = 'abcdefghijklmnopqrstuvwxyz0123456789';
+    }
+
+    $randomString = '';
+    for ($i = 0; $i < $length; $i++) {
+      $randomString .= $characters[rand(0, strlen($characters) - 1)];
+    }
+    return $randomString;
+  }
+
+  /**
+   * *Generating random token for any kind of authentication purpose
+   * @param int  $length length of the string - default 64
+   * @return string
+   */
+  public static function generateToken($length = 64)
+  {
+    return bin2hex(random_bytes($length));
   }
 }
