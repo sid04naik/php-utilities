@@ -18,10 +18,8 @@ class Utility
    * @param   float   $adjustPercent A number between -1 and 1. E.g. 0.3 = 30% lighter; -0.4 = 40% darker.
    * @return  string
    */
-  public static function adjustColorBrightness(
-    $hexCode = "",
-    $adjustPercent = ""
-  ) {
+  public function adjust_color_brightness($hexCode = "", $adjustPercent = "")
+  {
     $hexCode = ltrim($hexCode, '#');
 
     if (strlen($hexCode) == 3) {
@@ -51,7 +49,7 @@ class Utility
    * @param int $chartype type of string to be generated character or number
    * @return string
    */
-  public static function generateRandomCode($length = 6, $chartype = '')
+  public function generate_random_code($length = 6, $chartype = '')
   {
     if ($chartype == 1) {
       //only numbers
@@ -75,8 +73,18 @@ class Utility
    * @param int  $length length of the string - default 64
    * @return string
    */
-  public static function generateToken($length = 64)
+  public static function generate_token($length = 64)
   {
     return bin2hex(random_bytes($length));
+  }
+
+  /**
+   * *Creating a url with a valid transfer protocol
+   * @param string  $url url which runs in browser
+   * @return string
+   */
+  public static function set_http_protocol($url = "")
+  {
+    return !preg_match("~^(?:f|ht)tps?://~i", $url) ? "http://" . $url : $url;
   }
 }
