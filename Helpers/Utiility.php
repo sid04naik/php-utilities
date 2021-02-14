@@ -327,6 +327,6 @@ class Utility
       }
       return $res;
     }
-    return;
+    return false;
   }
 }
